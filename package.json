@@ -1,7 +1,7 @@
 {
   "name": "202502-kaboodle",
   "version": "0.0.1",
-  "description": "Kit and...",
+  "description": "Tech test for Kaboodle",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,9 +15,5 @@
   "bugs": {
     "url": "https://github.com/lyndsherb/202502-kaboodle/issues"
   },
-  "homepage": "https://github.com/lyndsherb/202502-kaboodle#readme",
-  "devDependencies": {
-    "nx": "20.4.0"
-  },
-  "nx": {}
+  "homepage": "https://github.com/lyndsherb/202502-kaboodle#readme"
 }
