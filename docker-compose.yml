@@ -1,7 +1,14 @@
+version: 2
 services:
   api:
     build: 
-      context: api/
+      context: ./api/
       dockerfile: Dockerfile
     ports: 
-      - "3000"
+      - "3000:80"
+  events:
+    build:
+      context: ./events/
+      dockerfile: Dockerfile
+    ports: 
+      - "8080:80"

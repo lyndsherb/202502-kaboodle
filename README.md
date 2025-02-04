@@ -5,4 +5,6 @@ Implementation of my tech test for a role at Kaboodle.
 ## Prerequisites
 
 * Docker Desktop
-* Node 
+* NVM or Nodenv
+* Node 22.9.0 
+* NPM
