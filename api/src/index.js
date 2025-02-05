@@ -8,10 +8,9 @@ app.use(express.json());
 app.use(routes);
 
 app.get('/', (_, res) => {
-  res.send('woohoo');
+  res.send('were in the dist file now boys');
 });
 
 app.listen(port, () => {
-  console.log('hi!');
   console.log(`Example app listening on port ${port}`);
 });

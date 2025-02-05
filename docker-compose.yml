@@ -1,15 +1,13 @@
 services:
   api:
     build: api/
-    command: node index.js 
     ports:
       - 3000:3000
   # events:
   #   build: events/
   #   network_mode: host
-  #   depends_on: 
+  #   depends_on:
   #     - api
   #   # command: node ./index.js
   #   ports:
   #     - 80:80
-      
