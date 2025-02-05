@@ -15,15 +15,5 @@
   "bugs": {
     "url": "https://github.com/lyndsherb/202502-kaboodle/issues"
   },
-  "homepage": "https://github.com/lyndsherb/202502-kaboodle#readme",
-  "workspaces": [
-    "api",
-    "events"
-  ],
-  "dependencies": {
-    "typescript": "^5.7.3"
-  },
-  "devDependencies": {
-    "eslint": "^9.19.0"
-  }
+  "homepage": "https://github.com/lyndsherb/202502-kaboodle#readme"
 }
