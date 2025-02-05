@@ -9,7 +9,17 @@
     "type": "git",
     "url": "git+https://github.com/lyndsherb/202502-kaboodle.git"
   },
+  "bugs": {
+    "url": "https://github.com/lyndsherb/202502-kaboodle/issues"
+  },
+  "homepage": "https://github.com/lyndsherb/202502-kaboodle#readme",
   "author": "Lyndsey Herbert",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.19.0"
+  }
 }
