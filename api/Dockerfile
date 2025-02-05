@@ -5,5 +5,3 @@ COPY package*.json .
 RUN ls -al
 RUN npm ci
 COPY . .
-
-# CMD [ "node", "./index.js"]
