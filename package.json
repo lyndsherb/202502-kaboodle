@@ -15,9 +15,5 @@
   "bugs": {
     "url": "https://github.com/lyndsherb/202502-kaboodle/issues"
   },
-  "homepage": "https://github.com/lyndsherb/202502-kaboodle#readme",
-  "devDependencies": {
-    "nx": "20.4.0"
-  },
-  "nx": {}
+  "homepage": "https://github.com/lyndsherb/202502-kaboodle#readme"
 }

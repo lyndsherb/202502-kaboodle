@@ -1,0 +1,26 @@
+Daemon process terminated and closed the connection
+
+Messages from the log:
+[NX Daemon Server] - 2025-02-05T03:14:33.627Z - Handled GLOB. Handling time: 10. Response time: 1.
+[NX Daemon Server] - 2025-02-05T03:14:33.627Z - Established a connection. Number of open connections: 3
+[NX Daemon Server] - 2025-02-05T03:14:33.627Z - Closed a connection. Number of open connections: 2
+[NX Daemon Server] - 2025-02-05T03:14:33.628Z - Established a connection. Number of open connections: 3
+[NX Daemon Server] - 2025-02-05T03:14:33.629Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2025-02-05T03:14:33.629Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2025-02-05T03:14:33.629Z - Handled HASH_GLOB. Handling time: 1. Response time: 0.
+[NX Daemon Server] - 2025-02-05T03:14:33.937Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2025-02-05T03:14:33.937Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2025-02-05T03:14:33.938Z - Handled HASH_GLOB. Handling time: 11. Response time: 1.
+[NX Daemon Server] - 2025-02-05T03:14:33.948Z - [REQUEST]: Responding to the client. handleHashGlob
+[NX Daemon Server] - 2025-02-05T03:14:33.948Z - Done responding to the client handleHashGlob
+[NX Daemon Server] - 2025-02-05T03:14:33.949Z - Handled HASH_GLOB. Handling time: 7. Response time: 1.
+[NX Daemon Server] - 2025-02-05T03:14:34.190Z - Established a connection. Number of open connections: 4
+[NX Daemon Server] - 2025-02-05T03:14:34.191Z - Closed a connection. Number of open connections: 3
+[NX Daemon Server] - 2025-02-05T03:14:34.210Z - Established a connection. Number of open connections: 4
+[NX Daemon Server] - 2025-02-05T03:14:34.211Z - Closed a connection. Number of open connections: 3
+[NX Daemon Server] - 2025-02-05T03:14:34.211Z - Established a connection. Number of open connections: 4
+[NX Daemon Server] - 2025-02-05T03:14:34.212Z - [REQUEST]: Client Request for Project Graph Received
+
+
+
+More information: /Users/lyndsey/src/kaboodletest/.nx/workspace-data/d/daemon.log

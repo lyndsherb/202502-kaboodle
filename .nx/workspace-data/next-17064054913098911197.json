@@ -1,0 +1,63 @@
+{
+  "1366140088626771638": {
+    "build": {
+      "command": "next build",
+      "options": {
+        "cwd": "events",
+        "tty": false
+      },
+      "dependsOn": [
+        "^build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        {
+          "externalDependencies": [
+            "next"
+          ]
+        }
+      ],
+      "outputs": [
+        "{workspaceRoot}/events/.next",
+        "{workspaceRoot}/events/.next/!(cache)"
+      ]
+    },
+    "dev": {
+      "command": "next dev",
+      "options": {
+        "cwd": "events"
+      }
+    },
+    "start": {
+      "command": "next start",
+      "options": {
+        "cwd": "events"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "serve-static": {
+      "command": "next start",
+      "options": {
+        "cwd": "events"
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "build-deps": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "watch-deps": {
+      "dependsOn": [
+        "build-deps"
+      ],
+      "command": "npx nx watch --projects events --includeDependentProjects -- npx nx build-deps events"
+    }
+  }
+}
