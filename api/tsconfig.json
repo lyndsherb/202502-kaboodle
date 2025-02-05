@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "target": "es2022",
+    "outDir": "dist"
+  },
+  "compileOnSave": false,
+  "include": ["./src/**/*.ts"]
+}

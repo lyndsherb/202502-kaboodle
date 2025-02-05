@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(routes);
 
 app.get('/', (_, res) => {
-  res.send('were in the dist file now boys');
+  res.send('dist AND typescript, aint we bougie');
 });
 
 app.listen(port, () => {
