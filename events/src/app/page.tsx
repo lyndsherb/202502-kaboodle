@@ -5,24 +5,24 @@ export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1>Add a new event</h1>
-        <Form className="flex flex-col justify-items-center p-8">
-          <h2>Event details</h2>
-          <Input type="hidden" name="id" className="mb-8" />
-          <Input type="text" name="name" className="mb-8" />
-          <Input type="datetime-local" name="date" className="mb-8" />
-          <TextArea name="description" className="mb-8" />
-          <h2 className="mb-8">Tickets</h2>
+        <h1 className="text-2xl">Add a new event</h1>
+        <Form className="flex flex-col justify-items-center space-y-8">
+          <h2 className="text-xl">Event details</h2>
+          <Input type="hidden" name="id" />
+          <Input type="text" name="name" />
+          <Input type="datetime-local" name="date" />
+          <TextArea name="description" />
+          <h2 className="text-xl">Tickets</h2>
           <ArrayField name="tickets">
             {({ add }) => (
               <>
                 <ArrayField.Items>
                   {() => (
                     <>
-                      <Input type="hidden" name="id" className="mb-8" />
-                      <Input type="text" name="name" className="mb-8" />
-                      <Input type="text" name="type" className="mb-8" />
-                      <Input type="number" name="price" className="mb-8" />
+                      <Input type="hidden" name="id" />
+                      <Input type="text" name="name" />
+                      <Input type="text" name="type" />
+                      <Input type="number" name="price" />
                       <Input
                         type="number"
                         name="booking_fee"
@@ -37,15 +37,11 @@ export default function Home() {
                  * @see: https://teslamotors.github.io/informed/getting-started/array-field
                  * */}
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <button onClick={add as any} className="mb-8">
-                  + Add ticket
-                </button>
+                <button onClick={add as any}>+ Add ticket</button>
               </>
             )}
           </ArrayField>
-          <button type="submit" className="mb-8">
-            Submit
-          </button>
+          <button type="submit">Submit</button>
           <Debug values modified dirty />
         </Form>
       </main>

@@ -12,7 +12,7 @@ export default async function Event({
     return (
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-          <h1>Whoops!</h1>
+          <h1 className="text-2xl">Whoops!</h1>
           <p> It appears that this event doesn&apos;t exist! Sorry!</p>
         </main>
       </div>
@@ -21,11 +21,11 @@ export default async function Event({
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1>{event.name}</h1>
+        <h1 className="text-2xl">{event.name}</h1>
         <p>{event.date}</p>
         <p>{event.description}</p>
-        <h2>Tickets</h2>
-        <ul>
+        <h2 className="text-xl">Tickets</h2>
+        <ul className="space-y-8">
           {event.tickets.map((ticket) => (
             <li key={ticket.id}>
               <article>

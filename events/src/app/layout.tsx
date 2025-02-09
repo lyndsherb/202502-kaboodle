@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <nav>
+        <nav className="flex items-center sm:items-start justify-center p-4 space-x-4 bg-rose-900/80 fixed w-[100vw]">
           <Link href="/">Create event</Link>
           <Link href="/events">See all events</Link>
         </nav>
