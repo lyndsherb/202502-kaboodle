@@ -24,21 +24,24 @@ const getSingle = (eventId: string): KbdFullEventData | BaseError => {
     const eventTicketsQtys = dataEventsTickets.filter(
       ({ event_id }: KbdEventTicket) => event_id === eventId
     );
+
     const tickets = dataTickets.reduce(
       (acc: KbdTicket[], ticket: KbdTicket) => {
-        const qty = eventTicketsQtys.find(
+        const ticketWithQty = eventTicketsQtys.find(
           ({ ticket_id }: KbdEventTicket) => ticket_id === ticket.id
-        )?.qty;
+        );
 
-        if (!qty) {
+        if (!ticketWithQty) {
           return acc;
         }
+
+        const { ticket_qty } = ticketWithQty;
 
         return [
           ...acc,
           {
             ...ticket,
-            ticket_qty: qty,
+            ticket_qty,
           },
         ];
       },

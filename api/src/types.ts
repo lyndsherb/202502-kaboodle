@@ -42,3 +42,10 @@ export type CreateEventType = {
   status: number;
   data: KbdFullEventData;
 };
+
+export type GetDataType = {
+  status: number;
+  events: KbdEvent[];
+  tickets: KbdTicket[];
+  eventsTickets: KbdEventTicket[];
+};

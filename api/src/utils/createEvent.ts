@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import fs from 'fs';
 import { v4 } from 'uuid';
-import * as data from '../data/index.js';
 import {
   KbdEvent,
   KbdTicket,
@@ -9,7 +8,9 @@ import {
   NewTicket,
   CreateEventType,
   BaseError,
+  GetDataType,
 } from '../types.js';
+import { getData } from './getData.js';
 
 type CreateEventReturn = CreateEventType | BaseError;
 
@@ -25,6 +26,14 @@ const create = (
     };
   }
 
+  const data = getData();
+
+  if (data.status !== 200) {
+    return data as BaseError;
+  }
+
+  const { events, tickets: apiTickets, eventsTickets } = data as GetDataType;
+
   const newEvent: KbdEvent = {
     id: v4(),
     ...event,
@@ -37,17 +46,17 @@ const create = (
     })
   );
 
-  const eventList = [...data.dataEvents, newEvent];
+  const eventList = [...events, newEvent];
 
   const ticketsList = [
-    ...data.dataTickets,
+    ...apiTickets,
     ...newTickets.map(
       ({ ticket_qty, ...ticket }): Omit<KbdTicket, 'ticket_qty'> => ticket
     ),
   ];
 
   const eventsTicketsList = [
-    ...data.dataEventsTickets,
+    ...eventsTickets,
     ...newTickets.map(({ id, ticket_qty }) => ({
       event_id: newEvent.id,
       ticket_id: id,
