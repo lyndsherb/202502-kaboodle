@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "event_id": "04de7ba9-7d86-46e6-a93a-0b977dd7f585",
+    "ticket_id": "fdfe0d8e-12dd-4ffd-9c69-7bf63cf2a6f7",
+    "ticket_qty": 740
+  },
+  {
+    "event_id": "04de7ba9-7d86-46e6-a93a-0b977dd7f585",
+    "ticket_id": "07cbe525-2892-4a4e-add6-463c7f0bb59c",
+    "ticket_qty": 203
+  },
+  {
+    "event_id": "04de7ba9-7d86-46e6-a93a-0b977dd7f585",
+    "ticket_id": "da4a9d9e-ab50-44a7-adef-b0835023816a",
+    "ticket_qty": 54
+  }
+]

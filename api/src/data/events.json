@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": "04de7ba9-7d86-46e6-a93a-0b977dd7f585",
+    "name": "Super Cool Event",
+    "date": "Sun Feb 09 2029 03:24:05 GMT+0000",
+    "description": "Description for the coolest event"
+  }
+]
