@@ -1,13 +1,13 @@
 import fs from 'fs';
-import { BaseError, KbdEvent, KbdEventTicket, KbdTicket } from '../types.js';
+import {
+  BaseError,
+  KbdEvent,
+  KbdEventTicket,
+  KbdTicket,
+  Status,
+} from '../types.js';
 
-export const setEventData = (
-  events: KbdEvent[]
-):
-  | {
-      status: 200;
-    }
-  | BaseError => {
+export const setEventData = (events: KbdEvent[]): Status | BaseError => {
   try {
     fs.writeFileSync('./data/events.json', JSON.stringify(events), 'utf-8');
 
@@ -23,7 +23,9 @@ export const setEventData = (
   }
 };
 
-export const setTicketData = (tickets: Omit<KbdTicket, 'ticket_qty'>[]) => {
+export const setTicketData = (
+  tickets: Omit<KbdTicket, 'ticket_qty'>[]
+): Status | BaseError => {
   try {
     fs.writeFileSync('./data/tickets.json', JSON.stringify(tickets), 'utf-8');
 
@@ -39,7 +41,9 @@ export const setTicketData = (tickets: Omit<KbdTicket, 'ticket_qty'>[]) => {
   }
 };
 
-export const setEventsTicketsData = (eventsTickets: KbdEventTicket[]) => {
+export const setEventsTicketsData = (
+  eventsTickets: KbdEventTicket[]
+): Status | BaseError => {
   try {
     fs.writeFileSync(
       './data/eventstickets.json',
@@ -54,7 +58,7 @@ export const setEventsTicketsData = (eventsTickets: KbdEventTicket[]) => {
     return {
       status: 500,
       error,
-      message: 'Failed to write to EventsTickets JSON file',
+      message: 'Failed to write to Events JSON file',
     };
   }
 };

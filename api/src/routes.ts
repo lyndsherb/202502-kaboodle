@@ -1,8 +1,8 @@
-import express, { Request, Response } from 'express';
-import fs from 'fs';
+import express from 'express';
 import { createEvent, getEvents } from './utils/index.js';
-import { KbdEvent, NewEvent, NewTicket, BaseError } from './types.js';
 import { getSingleEvent } from './utils/getSingleEvent.js';
+import { deleteEvent } from './utils/deleteEvent.js';
+
 const router = express.Router();
 
 router.get('/events', getEvents);
@@ -11,14 +11,8 @@ router.get('/events/:id', getSingleEvent);
 
 router.post('/events', createEvent);
 
-router.put('/events/:id', (req: Request, res: Response) => {
-  const eventId = req.params.id;
-  res.send(`Update event ${eventId}`);
-});
+router.put('/events/:id');
 
-router.delete('/events/:id', (req: Request, res: Response) => {
-  const eventId = req.params.id;
-  res.send(`Delete event ${eventId}`);
-});
+router.delete('/events/:id', deleteEvent);
 
 export default router;

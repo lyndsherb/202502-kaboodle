@@ -17,7 +17,7 @@ import {
   setTicketData,
 } from './setData.js';
 
-type CreateEventReturn = CreateEventType | BaseError;
+export type CreateEventReturn = CreateEventType | BaseError;
 
 const create = (
   event: NewEvent,
@@ -40,13 +40,13 @@ const create = (
   const { events, tickets: apiTickets, eventsTickets } = data as GetDataType;
 
   const newEvent: KbdEvent = {
-    id: v4(),
+    id: event.id || v4(),
     ...event,
   };
 
   const newTickets = tickets.map(
     (ticket: NewTicket): KbdTicket => ({
-      id: v4(),
+      id: ticket.id || v4(),
       ...ticket,
     })
   );
@@ -97,6 +97,5 @@ export const createEvent = (
   req: Request<NewEvent, NewTicket[]>,
   res: Response
 ) => {
-  const output = create(req.body.event, req.body.tickets);
-  res.send(output);
+  res.send(create(req.body.event, req.body.tickets));
 };

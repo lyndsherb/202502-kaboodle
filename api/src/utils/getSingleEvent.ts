@@ -6,10 +6,13 @@ import {
   KbdEventTicket,
   KbdFullEventData,
   KbdTicket,
+  Status,
 } from '../types.js';
 import { getData } from './getData.js';
 
-const getSingle = (eventId: string): KbdFullEventData | BaseError => {
+export const getSingle = (
+  eventId: string
+): (KbdFullEventData & Status) | BaseError => {
   const data = getData();
 
   if (data.status !== 200) {
@@ -45,6 +48,7 @@ const getSingle = (eventId: string): KbdFullEventData | BaseError => {
 
   if (event) {
     return {
+      status: 200,
       ...event,
       tickets,
     };
