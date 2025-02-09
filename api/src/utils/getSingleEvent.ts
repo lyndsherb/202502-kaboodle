@@ -1,70 +1,58 @@
 import { Request, Response } from 'express';
-import fs from 'fs';
 import {
   BaseError,
+  GetDataType,
   KbdEvent,
   KbdEventTicket,
   KbdFullEventData,
   KbdTicket,
 } from '../types.js';
+import { getData } from './getData.js';
 
 const getSingle = (eventId: string): KbdFullEventData | BaseError => {
-  try {
-    const dataEvents = JSON.parse(
-      fs.readFileSync('./data/events.json', 'utf-8')
-    );
-    const dataTickets = JSON.parse(
-      fs.readFileSync('./data/tickets.json', 'utf-8')
-    );
-    const dataEventsTickets = JSON.parse(
-      fs.readFileSync('./data/eventstickets.json', 'utf-8')
-    );
+  const data = getData();
 
-    const event = dataEvents.find(({ id }: KbdEvent) => id === eventId);
-    const eventTicketsQtys = dataEventsTickets.filter(
-      ({ event_id }: KbdEventTicket) => event_id === eventId
-    );
+  if (data.status !== 200) {
+    return data as BaseError;
+  }
 
-    const tickets = dataTickets.reduce(
-      (acc: KbdTicket[], ticket: KbdTicket) => {
-        const ticketWithQty = eventTicketsQtys.find(
-          ({ ticket_id }: KbdEventTicket) => ticket_id === ticket.id
-        );
+  const { events, tickets: dataTickets, eventsTickets } = data as GetDataType;
 
-        if (!ticketWithQty) {
-          return acc;
-        }
+  const event = events.find(({ id }: KbdEvent) => id === eventId);
+  const eventTicketsQtys = eventsTickets.filter(
+    ({ event_id }: KbdEventTicket) => event_id === eventId
+  );
 
-        const { ticket_qty } = ticketWithQty;
-
-        return [
-          ...acc,
-          {
-            ...ticket,
-            ticket_qty,
-          },
-        ];
-      },
-      []
+  const tickets = dataTickets.reduce((acc: KbdTicket[], ticket: KbdTicket) => {
+    const ticketWithQty = eventTicketsQtys.find(
+      ({ ticket_id }: KbdEventTicket) => ticket_id === ticket.id
     );
 
-    if (event) {
-      return {
-        ...event,
-        tickets,
-      };
-    } else {
-      return {
-        status: 404,
-        error: null,
-        message: `Event with ID ${eventId} does not exist`,
-      };
+    if (!ticketWithQty) {
+      return acc;
     }
-  } catch (error) {
+
+    const { ticket_qty } = ticketWithQty;
+
+    return [
+      ...acc,
+      {
+        ...ticket,
+        ticket_qty,
+      },
+    ];
+  }, []);
+
+  if (event) {
     return {
-      status: 500,
-      error,
-      message: `Failed to fetch event with ID ${eventId}`,
+      ...event,
+      tickets,
+    };
+  } else {
+    return {
+      status: 404,
+      error: null,
+      message: `Event with ID ${eventId} does not exist`,
     };
   }
 };
