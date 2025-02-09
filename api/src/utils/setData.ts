@@ -23,7 +23,7 @@ export const setEventData = (
   }
 };
 
-export const setTicketData = (tickets: KbdTicket[]) => {
+export const setTicketData = (tickets: Omit<KbdTicket, 'ticket_qty'>[]) => {
   try {
     fs.writeFileSync('./data/tickets.json', JSON.stringify(tickets), 'utf-8');
 
@@ -42,7 +42,7 @@ export const setTicketData = (tickets: KbdTicket[]) => {
 export const setEventsTicketsData = (eventsTickets: KbdEventTicket[]) => {
   try {
     fs.writeFileSync(
-      './data/events.json',
+      './data/eventstickets.json',
       JSON.stringify(eventsTickets),
       'utf-8'
     );

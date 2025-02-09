@@ -11,6 +11,11 @@ import {
   GetDataType,
 } from '../types.js';
 import { getData } from './getData.js';
+import {
+  setEventData,
+  setEventsTicketsData,
+  setTicketData,
+} from './setData.js';
 
 type CreateEventReturn = CreateEventType | BaseError;
 
@@ -64,30 +69,28 @@ const create = (
     })),
   ];
 
-  try {
-    fs.writeFileSync('./data/events.json', JSON.stringify(eventList), 'utf-8');
-    fs.writeFileSync(
-      './data/tickets.json',
-      JSON.stringify(ticketsList),
-      'utf-8'
-    );
-    fs.writeFileSync(
-      './data/eventstickets.json',
-      JSON.stringify(eventsTicketsList),
-      'utf-8'
-    );
+  const eventOut = setEventData(eventList);
 
-    return {
-      status: 200,
-      data: { ...newEvent, tickets: newTickets },
-    };
-  } catch (error) {
-    return {
-      status: 500,
-      error: error,
-      message: 'Failed to update JSON files',
-    };
+  if (eventOut.status !== 200) {
+    return eventOut as BaseError;
   }
+
+  const ticketOut = setTicketData(ticketsList);
+
+  if (ticketOut.status !== 200) {
+    return ticketOut as BaseError;
+  }
+
+  const eventsTicketsOut = setEventsTicketsData(eventsTicketsList);
+
+  if (eventsTicketsOut.status !== 200) {
+    return eventsTicketsOut as BaseError;
+  }
+
+  return {
+    status: 200,
+    data: { ...newEvent, tickets: newTickets },
+  };
 };
 
 export const createEvent = (
