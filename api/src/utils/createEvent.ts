@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import fs from 'fs';
 import { v4 } from 'uuid';
 import * as data from '../data/index.js';
@@ -12,7 +13,7 @@ import {
 
 type CreateEventReturn = CreateEventType | BaseError;
 
-export const createEvent = (
+const create = (
   event: NewEvent,
   tickets: NewTicket[] = []
 ): CreateEventReturn => {
@@ -30,7 +31,7 @@ export const createEvent = (
   };
 
   const newTickets = tickets.map(
-    (ticket: NewTicket): NewTicket & { id: string } => ({
+    (ticket: NewTicket): KbdTicket => ({
       id: v4(),
       ...ticket,
     })
@@ -40,7 +41,9 @@ export const createEvent = (
 
   const ticketsList = [
     ...data.dataTickets,
-    ...newTickets.map(({ ticket_qty, ...ticket }): KbdTicket => ticket),
+    ...newTickets.map(
+      ({ ticket_qty, ...ticket }): Omit<KbdTicket, 'ticket_qty'> => ticket
+    ),
   ];
 
   const eventsTicketsList = [
@@ -67,8 +70,7 @@ export const createEvent = (
 
     return {
       status: 200,
-      // @ts-expect-error
-      data: { event: newEvent, tickets: newTickets },
+      data: { ...newEvent, tickets: newTickets },
     };
   } catch (error) {
     return {
@@ -77,4 +79,12 @@ export const createEvent = (
       message: 'Failed to update JSON files',
     };
   }
+};
+
+export const createEvent = (
+  req: Request<NewEvent, NewTicket[]>,
+  res: Response
+) => {
+  const output = create(req.body.event, req.body.tickets);
+  res.send(output);
 };

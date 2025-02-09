@@ -17,6 +17,7 @@ export type KbdTicket = {
   type: string;
   price: number;
   booking_fee: number;
+  ticket_qty: number;
 };
 
 export type KbdEventTicket = {
@@ -27,12 +28,10 @@ export type KbdEventTicket = {
 
 export type NewEvent = Omit<KbdEvent, 'id'>;
 
-export type NewTicket = Omit<KbdTicket, 'id'> & {
-  ticket_qty: number;
-};
+export type NewTicket = Omit<KbdTicket, 'id'>;
 
 export type KbdFullEventData = KbdEvent & {
-  tickets: KbdTicket[] & { ticket_qty: number };
+  tickets: KbdTicket[];
 };
 
 export type UpdateEvent = KbdEvent & {

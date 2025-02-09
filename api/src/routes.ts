@@ -1,63 +1,15 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
-import { createEvent } from './utils/create.js';
-import {
-  KbdEvent,
-  NewEvent,
-  NewTicket,
-  BaseError,
-  CreateEventType,
-} from './types.js';
+import { createEvent, getEvents } from './utils/index.js';
+import { KbdEvent, NewEvent, NewTicket, BaseError } from './types.js';
+import { getSingleEvent } from './utils/getSingleEvent.js';
 const router = express.Router();
 
-router.get('/events', (_, res: Response<KbdEvent[] | BaseError>) => {
-  try {
-    const dataEvents = fs.readFileSync('./data/events.json', 'utf-8');
-    const output = JSON.parse(dataEvents);
-    res.send(output);
-  } catch (error) {
-    res.send({
-      status: 500,
-      error,
-      message: 'Failed to fetch event list',
-    });
-  }
-});
+router.get('/events', getEvents);
 
-router.get(
-  '/events/:id',
-  (req: Request, res: Response<KbdEvent | BaseError>) => {
-    const eventId = req.params.id;
+router.get('/events/:id', getSingleEvent);
 
-    try {
-      const dataEvents = JSON.parse(
-        fs.readFileSync('./data/events.json', 'utf-8')
-      );
-      const event = dataEvents.find(({ id }: { id: string }) => id === eventId);
-
-      if (event) {
-        res.send(event);
-      } else {
-        res.send({
-          status: 404,
-          error: null,
-          message: `Event with ID ${eventId} does not exist`,
-        });
-      }
-    } catch (error) {
-      res.send({
-        status: 500,
-        error,
-        message: `Failed to fetch event with ID ${eventId}`,
-      });
-    }
-  }
-);
-
-router.post('/events', (req: Request<NewEvent, NewTicket[]>, res: Response) => {
-  const output = createEvent(req.body.event, req.body.tickets);
-  res.send(output);
-});
+router.post('/events', createEvent);
 
 router.put('/events/:id', (req: Request, res: Response) => {
   const eventId = req.params.id;
