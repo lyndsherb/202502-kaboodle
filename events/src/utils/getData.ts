@@ -1,4 +1,4 @@
-import { KbdEvent, KbdFullEventData } from '../types';
+import { KbdEvent, KbdFullEventData, Status } from '../types';
 
 export const getEvents = async (): Promise<KbdEvent[]> => {
   const data = await fetch('http://localhost:3001/events');
@@ -9,7 +9,7 @@ export const getEvents = async (): Promise<KbdEvent[]> => {
 
 export const getSingleEvent = async (
   eventId: string
-): Promise<KbdFullEventData> => {
+): Promise<KbdFullEventData & Status> => {
   const data = await fetch(`http://localhost:3001/events/${eventId}`);
   const event = await data.json();
 
