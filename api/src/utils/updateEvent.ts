@@ -1,12 +1,19 @@
 import { Request, Response } from 'express';
 import { CreateEventReturn } from './createEvent.js';
-import { BaseError, GetDataType, KbdEvent, KbdTicket } from '../types.js';
+import {
+  BaseError,
+  GetDataType,
+  KbdEvent,
+  KbdEventTicket,
+  KbdTicket,
+} from '../types.js';
 import {
   setEventData,
   setEventsTicketsData,
   setTicketData,
 } from './setData.js';
 import { getData } from './getData.js';
+import { v4 } from 'uuid';
 
 const update = (
   eventId: string,
@@ -61,9 +68,12 @@ const update = (
         return ticket;
       }
 
+      const id = ticket.id || v4();
+
       return {
         ...ticket,
         ...updatedTicket,
+        id,
       };
     });
 
@@ -75,12 +85,12 @@ const update = (
     return setTickets as BaseError;
   }
 
-  const eventsTicketsList = eventsTickets.filter(
-    ({ event_id }) => event_id === eventId
+  const newTickets = tickets.filter(
+    ({ id }) => !eventsTickets.find(({ ticket_id }) => ticket_id === id)
   );
 
-  const outputTickets = updatedTickets.filter(({ id }) =>
-    eventsTickets.find(({ ticket_id }) => ticket_id === id)
+  const eventsTicketsList = eventsTickets.filter(
+    ({ event_id }) => event_id === eventId
   );
 
   const updatedEventsTickets = eventsTicketsList
@@ -100,15 +110,35 @@ const update = (
       };
     });
 
-  const setEventsTickets = setEventsTicketsData(updatedEventsTickets);
+  const addedTickets = newTickets.map(
+    ({ id, ticket_qty }: KbdTicket): KbdEventTicket => ({
+      event_id: eventId,
+      ticket_id: id,
+      ticket_qty,
+    })
+  );
+
+  const eventsTicketsData = [...updatedEventsTickets, ...addedTickets];
+
+  const setEventsTickets = setEventsTicketsData(eventsTicketsData);
 
   if (setEventsTickets.status !== 200) {
     return setEventsTickets as BaseError;
   }
 
+  const outputTickets = updatedTickets.filter(({ id }) =>
+    eventsTicketsData.find(({ ticket_id }) => ticket_id === id)
+  );
+
+  const outputEvent = updatedEvents.find(({ id }) => eventId === id);
+
   return {
     status: 200,
-    data: { ...event, tickets: outputTickets },
+    // @ts-expect-error
+    data: {
+      ...outputEvent,
+      tickets: outputTickets,
+    },
   };
 };
 
