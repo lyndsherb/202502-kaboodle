@@ -1,12 +1,12 @@
 export type KbdEvent = {
-  id: number;
+  id: string;
   name: string;
   date: Date;
   description: string;
 };
 
 export type KbdTicket = {
-  id: number;
+  id: string;
   name: string;
   type: string;
   price: number;
@@ -14,13 +14,15 @@ export type KbdTicket = {
 };
 
 export type KbdEventTicket = {
-  event_id: number;
-  ticket_id: number;
+  event_id: string;
+  ticket_id: string;
   ticket_qty: number;
 };
 
-export type NewEvent = Omit<KbdEvent, 'id'> & {
-  tickets: Omit<KbdTicket, 'id'>[] & { ticket_qty: number };
+export type NewEvent = Omit<KbdEvent, 'id'>;
+
+export type NewTicket = Omit<KbdTicket, 'id'> & {
+  ticket_qty: number;
 };
 
 export type UpdateEvent = KbdEvent & {

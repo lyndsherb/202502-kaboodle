@@ -1,13 +1,19 @@
 import express, { Request, Response } from 'express';
+import { dataEvents } from './utils/index.js';
 const router = express.Router();
 
 router.get('/events', (req: Request, res: Response) => {
-  res.send('List of events');
+  res.send(dataEvents);
 });
 
 router.get('/events/:id', (req: Request, res: Response) => {
   const eventId = req.params.id;
-  res.send(`Details of event ${eventId}`);
+
+  if (dataEvents[eventId as any]) {
+    res.send(dataEvents[eventId as any]);
+  } else {
+    res.send(`Could not find event with ${eventId}`);
+  }
 });
 
 router.post('/events', (req: Request, res: Response) => {
