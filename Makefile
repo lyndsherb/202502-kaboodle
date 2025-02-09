@@ -4,6 +4,10 @@ up:
 down:
 	docker-compose down;
 
+restart:
+	make down;
+	make up;
+
 rebuild: 
-	docker-compose down; 
+	make down;
 	docker-compose up -d --build;
