@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(routes);
 
 app.get('/', (_, res: Response) => {
-  res.send('dist AND typescript, aint we bougie');
+  res.send('Welcome to the Kaboodle API!');
 });
 
 app.listen(port, () => {

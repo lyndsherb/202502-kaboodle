@@ -15,7 +15,6 @@ export default function Home() {
         onSubmit={handleSubmit}
       >
         <h2 className="text-xl font-semibold">Event details</h2>
-        <Input className={fieldClasssNames} type="hidden" name="id" />
         <label htmlFor="name" className={labelClassNames}>
           <span>Event name</span>
           <Input
@@ -48,11 +47,6 @@ export default function Home() {
               <ArrayField.Items>
                 {({ remove }) => (
                   <>
-                    <Input
-                      className={fieldClasssNames}
-                      type="hidden"
-                      name="id"
-                    />
                     <Input
                       className={fieldClasssNames}
                       type="text"

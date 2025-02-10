@@ -5,7 +5,7 @@ Implementation of my tech test for a role at Kaboodle.
 ## Prerequisites
 
 - Docker
-- Make
+- Make (optional; you can run the commands by copying them from the Makefile)
 
 ## Project setup
 
@@ -15,6 +15,21 @@ Implementation of my tech test for a role at Kaboodle.
 | `make down`    | Stop project and remove containers.           |
 | `make rebuild` | Re-build and restart project.                 |
 
+## Output URLs
+
+API: `http://localhost:3001`
+Events FE: `http://localhost:3000`
+
+## API endpoints
+
+```
+GET '/events' - Get a full list of events
+POST '/events' - Create an event
+GET '/events/:id' - Get event by ID
+PUT '/events/:id' - Update event by ID
+DELETE '/events/:id' - Delete event by ID
+```
+
 ## API flow
 
 ![A flow chart showing how the API is expected to flow](assets/api_flow.jpg)
@@ -22,3 +37,29 @@ Implementation of my tech test for a role at Kaboodle.
 - Events - include event Name, Date and Description. User input. ID automagically generated.
 - Tickets - include ticket Name, Type, Price and Booking Fee. ID automagically generated.
 - EventTickets - include event ID, ticket ID and ticket Quantity. Event and ticket IDs refer to their specific tables.
+
+## Design decisions
+
+### Setup
+
+Wanted to keep this relatively simple. Had originally attempted setup with [Nx](https://nx.dev/) for that true monorepo experience but it was more opinionated than I'd liked, so I removed it. (Something to look into for a later date)!
+
+In the very early stages I reviewed using AWS as well, especially for the database, but due to time constraints this was eventually scrapped. Something for me to try for a personal project for sure.
+
+### API
+
+Uses ExpressJS with JSON files as a 'database'. I'd use mySQL for this in the future, for sure. As above, I wanted to keep this simple, so set this up myself rather than boilerplate for a better view of my actual work.
+
+Most API endpoints were pretty straightforward; only the Update endpoint wound up causing me problems, but I was trying to update three files at once in one function. It would be much better to separate `events`, `tickets` and `eventstickets` (as per my files/structure) into their own endpoints. As it stands, core event data can be updated with the `put` endpoint, but nothing else can be.
+
+### Frontend
+
+Uses NextJS with [Informed](https://teslamotors.github.io/informed/). Informed was an easy choice to make due to the ease of being able to add array fields, so a user could add multiple tickets to their event. It does cause some issues with server-side rendering which was an unexpected side effect - good to know for next time though!
+
+### Improvements to make
+
+Testing and and TDD would be the first major improvement to make - this will really help get some of the missing functionality out of the door.
+
+Set up some sort of actual database, such as MySQL, instead of the JSON files. The files are fine for testing but a database will be superior.
+
+As mentioned above, add more endpoints to add/update/delete tickets and eventtickets specifically.
