@@ -5,7 +5,6 @@ import routes from './routes.js';
 const app = express();
 const port = 3001;
 const options: cors.CorsOptions = {
-  credentials: true,
   origin: true,
 };
 

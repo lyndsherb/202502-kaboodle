@@ -7,6 +7,12 @@ Implementation of my tech test for a role at Kaboodle.
 - Docker
 - Make (optional; you can run the commands by copying them from the Makefile)
 
+## But First, A Caveat
+
+Despite my best efforts, I had a right fight with CORS between the two Docker containers - whilst you can easily `GET` the information, nothing I tried was letting me `POST` anything.
+
+If you want to at least see for yourself, feel free to un-comment the `events` section in `docker-compose.yml` (and make sure you remove the `npm run dev` in the Makefile!).
+
 ## Project setup
 
 | Task           | Description                                   |
@@ -14,6 +20,7 @@ Implementation of my tech test for a role at Kaboodle.
 | `make up`      | Boot project up and run it in the background. |
 | `make down`    | Stop project and remove containers.           |
 | `make rebuild` | Re-build and restart project.                 |
+| `make remove`  | Remove volumes and images from your machine.  |
 
 ## Output URLs
 
@@ -58,8 +65,8 @@ Uses NextJS with [Informed](https://teslamotors.github.io/informed/). Informed w
 
 ### Improvements to make
 
-Testing and and TDD would be the first major improvement to make - this will really help get some of the missing functionality out of the door.
-
-Set up some sort of actual database, such as MySQL, instead of the JSON files. The files are fine for testing but a database will be superior.
-
-As mentioned above, add more endpoints to add/update/delete tickets and eventtickets specifically.
+- Testing and and TDD would be the first major improvement to make - this will really help get some of the missing functionality out of the door.
+- Set up some sort of actual database, such as MySQL, instead of the JSON files. The files are fine for testing but a database will be superior - this would make pagination etc. a lot easier.
+- As mentioned above, add more endpoints to add/update/delete tickets and eventtickets specifically.
+- Allow users to update tickets from the ticket page. Probably re-use the form and populate with the Informed API.
+- Investigate the hydration error on the form page.
