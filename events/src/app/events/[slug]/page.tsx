@@ -46,8 +46,7 @@ export default async function Event({
                 <td className="pb-2">
                   <h3
                     className={classNames('font-semibold', {
-                      'line-through text-grey-300 italic':
-                        ticket.ticket_qty === 0,
+                      'line-through italic': !ticket.ticket_qty,
                     })}
                   >
                     {ticket.name}
@@ -65,8 +64,7 @@ export default async function Event({
                   <p>
                     <span
                       className={classNames({
-                        'line-through text-grey-300 italic':
-                          ticket.ticket_qty === 0,
+                        'line-through italic': !ticket.ticket_qty,
                       })}
                     >
                       £{ticket.price}

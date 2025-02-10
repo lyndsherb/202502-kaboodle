@@ -1,18 +1,53 @@
 'use client';
 // 'use client' as Informed uses Context which Next is unhappy about for SSR
-import { ArrayField, Form, Input, TextArea } from 'informed';
+import { useState } from 'react';
+import { ArrayField, Form, FormState, Input, TextArea } from 'informed';
 import { handleSubmit } from '@/utils/setData';
+import { BaseError, KbdFullEventData } from '@/types';
+import classNames from 'classnames';
+
+const useForm = () => {
+  const [message, setMessage] = useState<{
+    type: 'success' | 'error';
+    message: string;
+  } | null>(null);
+
+  const handleFormSubmit = async (state: FormState): Promise<void> => {
+    setMessage(null);
+    const submit = await handleSubmit(state.values as KbdFullEventData);
+
+    if (submit.status === 200) {
+      setMessage({ type: 'success', message: 'Event created successfully!' });
+    } else {
+      setMessage({ type: 'error', message: (submit as BaseError).message });
+    }
+  };
+
+  return { handleFormSubmit, message };
+};
 
 export default function Home() {
+  const { handleFormSubmit, message } = useForm();
+
   const fieldClasssNames =
-    'p-3 text-black placeholder:text-grey-300 border w-full';
+    'p-3 text-black placeholder:text-grey-300 border w-full rounded-3xl';
   const labelClassNames = 'flex flex-column flex-wrap space-y-2';
   return (
     <>
       <h1 className="text-2xl font-semibold uppercase">Add a new event</h1>
+      {message ? (
+        <div
+          className={classNames('p-4 mt-4 w-full rounded-3xl', {
+            'bg-green-400 dark:bg-green-600': message.type === 'success',
+            'bg-red-400 dark:bg-red-600': message.type === 'error',
+          })}
+        >
+          {message.message}
+        </div>
+      ) : null}
       <Form
         className="flex flex-col justify-items-center space-y-4 w-full mt-4"
-        onSubmit={handleSubmit}
+        onSubmit={handleFormSubmit}
       >
         <h2 className="text-xl font-semibold">Event details</h2>
         <label htmlFor="name" className={labelClassNames}>

@@ -1,5 +1,4 @@
-import { FormState } from 'informed';
-import { KbdFullEventData, Status } from '../types';
+import { BaseError, KbdFullEventData, Status } from '../types';
 import { apiUrl } from './constants';
 
 const createEvent = async (
@@ -22,7 +21,10 @@ const createEvent = async (
   return event;
 };
 
-export const handleSubmit = async ({ values }: FormState): Promise<void> => {
-  const sendData = await createEvent(values as KbdFullEventData);
-  console.log('debug', { sendData });
+export const handleSubmit = async (
+  values: KbdFullEventData
+): Promise<(KbdFullEventData & Status) | BaseError> => {
+  const output = await createEvent(values as KbdFullEventData);
+
+  return output;
 };
