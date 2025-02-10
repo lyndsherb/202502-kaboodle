@@ -6,6 +6,7 @@ WORKDIR /api
 COPY package*.json tsconfig.json .
 COPY src src
 RUN \
+    mv src/data data; \
     npm ci; \
     npm run build; \
     rm -r src; \

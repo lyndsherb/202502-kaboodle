@@ -1,19 +1,19 @@
 services:
   api:
-    container_name: kaboodle_api
+    container_name: lhe_kaboodle_api
     build: api/
     ports:
       - 3001:3001
     volumes:
       - data:/api/data
-  events:
-    container_name: kaboodle_events
-    build: events/
-    ports:
-      - 3000:3000
-    depends_on:
-      - api
+  # events:
+  #   container_name: lhe_kaboodle_events
+  #   build: events/
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - api
 
 volumes:
   data:
-    name: kaboodle_data
+    name: lhe_kaboodle_data
