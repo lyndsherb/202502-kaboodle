@@ -2,6 +2,7 @@ services:
   api:
     container_name: lhe_kaboodle_api
     build: api/
+    image: lhe_kaboodle/api
     ports:
       - 3001:3001
     volumes:
@@ -9,6 +10,7 @@ services:
   events:
     container_name: lhe_kaboodle_events
     build: events/
+    image: lhe_kaboodle/events
     ports:
       - 3000:3000
     depends_on:
