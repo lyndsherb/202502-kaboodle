@@ -53,82 +53,36 @@ const update = (
     return setEvent as BaseError;
   }
 
-  const updatedTickets = [...dataTickets, ...tickets]
-    .reduce((acc: KbdTicket[], ticket: KbdTicket): KbdTicket[] => {
-      if (acc.find(({ id }) => id === ticket.id)) {
+  // Merge all ticket information to make sure we catch the new ones
+  const mergedTickets = [...dataTickets, ...tickets].reduce<KbdTicket[]>(
+    (acc, ticket) => {
+      if (acc.length > 0 && acc.find(({ id }) => ticket.id === id)) {
         return acc;
       }
 
-      return [...acc, ticket];
-    }, [])
-    .map((ticket: KbdTicket): KbdTicket => {
-      const updatedTicket = tickets.find(({ id }) => id === ticket.id);
-
-      if (!updatedTicket) {
-        return ticket;
+      // if no ticket ID, then we must have a new ticket on our hands.
+      // Create a new ticket and add to the list.
+      if (!ticket.id) {
+        return [...acc, { ...ticket, id: v4() }];
       }
+      // ... then ensure we get the latest version of the ticket from the customer data,
+      // but fall back to the existing ticket if we can't find the one from the submission
+      const updatedTicket =
+        tickets.find(({ id }) => ticket.id === id) || ticket;
 
-      const id = ticket.id || v4();
-
-      return {
-        ...ticket,
-        ...updatedTicket,
-        id,
-      };
-    });
+      // return the list of tickets including our updates
+      return [...acc, updatedTicket!];
+    },
+    []
+  );
 
   const setTickets = setTicketData(
-    updatedTickets.map(({ ticket_qty, ...ticket }) => ticket)
+    mergedTickets.map(({ ticket_qty, ...ticket }) => ticket)
   );
 
   if (setTickets.status !== 200) {
     return setTickets as BaseError;
   }
-
-  const newTickets = tickets.filter(
-    ({ id }) => !eventsTickets.find(({ ticket_id }) => ticket_id === id)
-  );
-
-  const eventsTicketsList = eventsTickets.filter(
-    ({ event_id }) => event_id === eventId
-  );
-
-  const updatedEventsTickets = eventsTicketsList
-    .filter(({ ticket_id }) => !tickets.find(({ id }) => ticket_id === id))
-    .map((eventTicket) => {
-      const updatedTicket = tickets.find(
-        ({ id }) => eventTicket.ticket_id === id
-      );
-
-      if (!updatedTicket) {
-        return eventTicket;
-      }
-
-      return {
-        ...eventTicket,
-        ticket_qty: updatedTicket.ticket_qty,
-      };
-    });
-
-  const addedTickets = newTickets.map(
-    ({ id, ticket_qty }: KbdTicket): KbdEventTicket => ({
-      event_id: eventId,
-      ticket_id: id,
-      ticket_qty,
-    })
-  );
-
-  const eventsTicketsData = [...updatedEventsTickets, ...addedTickets];
-
-  const setEventsTickets = setEventsTicketsData(eventsTicketsData);
-
-  if (setEventsTickets.status !== 200) {
-    return setEventsTickets as BaseError;
-  }
-
-  const outputTickets = updatedTickets.filter(({ id }) =>
-    eventsTicketsData.find(({ ticket_id }) => ticket_id === id)
-  );
 
   const outputEvent = updatedEvents.find(({ id }) => eventId === id);
 
@@ -137,7 +91,7 @@ const update = (
     // @ts-expect-error
     data: {
       ...outputEvent,
-      tickets: outputTickets,
+      // tickets: outputTickets,
     },
   };
 };
