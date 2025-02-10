@@ -5,11 +5,13 @@ import { ArrayField, Form, FormState, Input, TextArea } from 'informed';
 import { handleSubmit } from '@/utils/setData';
 import { BaseError, KbdFullEventData } from '@/types';
 import classNames from 'classnames';
+import Link from 'next/link';
 
 const useForm = () => {
   const [message, setMessage] = useState<{
     type: 'success' | 'error';
     message: string;
+    link?: string;
   } | null>(null);
 
   const handleFormSubmit = async (state: FormState): Promise<void> => {
@@ -17,7 +19,12 @@ const useForm = () => {
     const submit = await handleSubmit(state.values as KbdFullEventData);
 
     if (submit.status === 200) {
-      setMessage({ type: 'success', message: 'Event created successfully!' });
+      setMessage({
+        type: 'success',
+        message: 'Event created successfully!',
+        // @ts-expect-error data is incorrectly typed on the output. This needs to be addressed at some point.
+        link: `/events/${submit.data.id}`,
+      });
     } else {
       setMessage({ type: 'error', message: (submit as BaseError).message });
     }
@@ -42,7 +49,10 @@ export default function Home() {
             'bg-red-400 dark:bg-red-600': message.type === 'error',
           })}
         >
-          {message.message}
+          {message.message}{' '}
+          {message.link ? (
+            <Link href={message.link}>Click here to view your new event</Link>
+          ) : null}
         </div>
       ) : null}
       <Form
