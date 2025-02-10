@@ -31,7 +31,7 @@ export default async function Event({
     );
   }
   return (
-    <article className="space-y-4">
+    <article className="space-y-4 w-full">
       <h1 className="text-2xl font-semibold uppercase mb-4 text-center">
         {event.name}
       </h1>

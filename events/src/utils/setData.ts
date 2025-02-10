@@ -17,7 +17,7 @@ const createEvent = async (
     }),
   });
   const event = await request.json();
-  console.log('debug', event);
+
   return event;
 };
 

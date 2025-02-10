@@ -4,9 +4,13 @@ import routes from './routes.js';
 
 const app = express();
 const port = 3001;
+const options: cors.CorsOptions = {
+  credentials: true,
+  origin: true,
+};
 
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors(options));
 app.use(routes);
 
 app.get('/', (_, res: Response) => {
@@ -14,5 +18,5 @@ app.get('/', (_, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Kaboodle events API listening on port ${port}`);
 });
