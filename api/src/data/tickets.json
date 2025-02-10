@@ -1,0 +1,23 @@
+[
+  {
+    "id": "fdfe0d8e-12dd-4ffd-9c69-7bf63cf2a6f7",
+    "name": "Adult Standing",
+    "type": "standard",
+    "price": 19.99,
+    "booking_fee": 4.99
+  },
+  {
+    "id": "07cbe525-2892-4a4e-add6-463c7f0bb59c",
+    "name": "Adult Sitting",
+    "type": "standard-plus",
+    "price": 24.99,
+    "booking_fee": 4.99
+  },
+  {
+    "id": "da4a9d9e-ab50-44a7-adef-b0835023816a",
+    "name": "Adult VIP",
+    "type": "vip",
+    "price": 349.99,
+    "booking_fee": 4.99
+  }
+]

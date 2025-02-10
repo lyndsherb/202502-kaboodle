@@ -7,5 +7,7 @@ COPY src src
 RUN npm ci
 RUN npm run build
 RUN rm -r src
+RUN mv dist/* .
+RUN rm -r dist
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "./index.js"]

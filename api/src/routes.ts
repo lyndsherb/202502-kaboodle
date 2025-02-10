@@ -1,27 +1,19 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import { createEvent, getEvents } from './utils/index.js';
+import { getSingleEvent } from './utils/getSingleEvent.js';
+import { deleteEvent } from './utils/deleteEvent.js';
+import { updateEvent } from './utils/updateEvent.js';
+
 const router = express.Router();
 
-router.get('/events', (req: Request, res: Response) => {
-  res.send('List of events');
-});
+router.get('/events', getEvents);
 
-router.get('/events/:id', (req: Request, res: Response) => {
-  const eventId = req.params.id;
-  res.send(`Details of event ${eventId}`);
-});
+router.get('/events/:id', getSingleEvent);
 
-router.post('/events', (req: Request, res: Response) => {
-  res.send('Create a new event');
-});
+router.post('/events', createEvent);
 
-router.put('/events/:id', (req: Request, res: Response) => {
-  const eventId = req.params.id;
-  res.send(`Update event ${eventId}`);
-});
+router.put('/events/:id', updateEvent);
 
-router.delete('/events/:id', (req: Request, res: Response) => {
-  const eventId = req.params.id;
-  res.send(`Delete event ${eventId}`);
-});
+router.delete('/events/:id', deleteEvent);
 
 export default router;

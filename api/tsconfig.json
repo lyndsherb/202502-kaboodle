@@ -5,7 +5,8 @@
     "moduleResolution": "nodenext",
     "strict": true,
     "target": "es2022",
-    "outDir": "dist"
+    "outDir": "dist",
+    "resolveJsonModule": true
   },
   "compileOnSave": false,
   "include": ["./src/**/*.ts"]
