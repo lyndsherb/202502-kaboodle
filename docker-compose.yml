@@ -1,20 +1,19 @@
 services:
   api:
-    container_name: kaboodle_api
+    container_name: lhe_kaboodle_api
     build: api/
     ports:
-      - 3000:3000
+      - 3001:3001
     volumes:
       - data:/api/data
   # events:
+  #   container_name: lhe_kaboodle_events
   #   build: events/
-  #   network_mode: host
+  #   ports:
+  #     - 3000:3000
   #   depends_on:
   #     - api
-  #   # command: node ./index.js
-  #   ports:
-  #     - 80:80
 
 volumes:
   data:
-    name: kaboodle_data
+    name: lhe_kaboodle_data
