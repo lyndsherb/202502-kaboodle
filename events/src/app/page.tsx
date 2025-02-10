@@ -67,6 +67,7 @@ export default function Home() {
             type="text"
             name="name"
             placeholder="Event name"
+            required
           />
         </label>
         <label htmlFor="date" className={labelClassNames}>
@@ -75,6 +76,7 @@ export default function Home() {
             className={fieldClasssNames}
             type="datetime-local"
             name="date"
+            required
           />
         </label>
         <label htmlFor="description" className={labelClassNames}>
@@ -97,12 +99,14 @@ export default function Home() {
                       type="text"
                       name="name"
                       placeholder="Ticket name"
+                      required
                     />
                     <Input
                       className={fieldClasssNames}
                       type="text"
                       name="type"
                       placeholder="Ticket type"
+                      required
                     />
                     <Input
                       className={fieldClasssNames}
@@ -115,6 +119,7 @@ export default function Home() {
                       type="number"
                       name="price"
                       placeholder="Ticket price"
+                      required
                     />
                     <Input
                       className={fieldClasssNames}
