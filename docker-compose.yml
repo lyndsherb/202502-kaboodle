@@ -6,13 +6,13 @@ services:
       - 3001:3001
     volumes:
       - data:/api/data
-  # events:
-  #   container_name: lhe_kaboodle_events
-  #   build: events/
-  #   ports:
-  #     - 3000:3000
-  #   depends_on:
-  #     - api
+  events:
+    container_name: lhe_kaboodle_events
+    build: events/
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
 
 volumes:
   data:
