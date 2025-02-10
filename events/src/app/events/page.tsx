@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getEvents } from '../../utils/getData';
+import { getEvents } from '@/utils/getData';
 import { formatDate } from '@/utils/formatDate';
 
 export default async function Events() {

@@ -1,5 +1,7 @@
 'use client';
-import { ArrayField, Debug, Form, Input, TextArea } from 'informed';
+// 'use client' as Informed uses Context which Next is unhappy about for SSR
+import { ArrayField, Form, Input, TextArea } from 'informed';
+import { handleSubmit } from '@/utils/setData';
 
 export default function Home() {
   const fieldClasssNames =
@@ -8,7 +10,10 @@ export default function Home() {
   return (
     <>
       <h1 className="text-2xl font-semibold uppercase">Add a new event</h1>
-      <Form className="flex flex-col justify-items-center space-y-4 w-full mt-4">
+      <Form
+        className="flex flex-col justify-items-center space-y-4 w-full mt-4"
+        onSubmit={handleSubmit}
+      >
         <h2 className="text-xl font-semibold">Event details</h2>
         <Input className={fieldClasssNames} type="hidden" name="id" />
         <label htmlFor="name" className={labelClassNames}>
@@ -63,6 +68,12 @@ export default function Home() {
                     <Input
                       className={fieldClasssNames}
                       type="number"
+                      name="ticket_qty"
+                      placeholder="Ticket quantity"
+                    />
+                    <Input
+                      className={fieldClasssNames}
+                      type="number"
                       name="price"
                       placeholder="Ticket price"
                     />
@@ -102,7 +113,6 @@ export default function Home() {
         >
           Submit
         </button>
-        <Debug values modified dirty />
       </Form>
     </>
   );

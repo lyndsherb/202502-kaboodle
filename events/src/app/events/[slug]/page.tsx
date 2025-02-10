@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { formatDate } from '@/utils/formatDate';
-import { getSingleEvent } from '../../../utils/getData';
+import { getSingleEvent } from '@/utils/getData';
 
 export default async function Event({
   params,
